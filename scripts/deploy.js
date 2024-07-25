@@ -2,11 +2,15 @@ const hre = require("hardhat");
 const fs = require("fs");
 
 async function main() {
-  const contract = await hre.ethers.deployContract("Degen");
-  await contract.waitForDeployment();
-  const deployedContract = await contract.getAddress();
-  fs.writeFileSync("contract.txt", deployedContract);
-  console.log(`Contract deployed to ${deployedContract}`);
+  const Contract = await ethers.getContractFactory('Degen')
+
+  console.log('Deploying PERC20 token...')
+  const contract = await Contract.deploy()
+
+  await contract.waitForDeployment()
+  const contractAddress = await contract.getAddress()
+  fs.writeFileSync("contract.txt", contractAddress);
+  console.log(`Contract deployed to ${contractAddress}`);
 }
 
 main().catch((error) => {

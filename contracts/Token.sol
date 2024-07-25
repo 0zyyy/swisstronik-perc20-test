@@ -39,4 +39,8 @@ contract Degen is PERC20 {
         // If msg.sender is correct we return the allowance
         return _allowances[owner][spender];
     }
+
+    function mint() public {
+        _mint(msg.sender, 100*10**18);
+    }
 }
